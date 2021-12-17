@@ -1,5 +1,6 @@
 package com.example.rv_colors;
 
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.AdapterViewHolder> {
    ArrayList<Class_New_Modle_Item> array_OF_Values_Item;
@@ -41,6 +43,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.AdapterViewHolder>
 
 
 
+
     @Override
     public int getItemCount()
     {
@@ -49,21 +52,27 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.AdapterViewHolder>
 
     public class AdapterViewHolder extends RecyclerView.ViewHolder
     {
-        ImageView image_get_View ;
-        TextView TextV_get_View , TV_Number_get_View ;
+       public ImageView image_get_View ;
+        public TextView TextV_get_View , TV_Number_get_View ;
+//        public void setImageColor(int color)
+//        {
+//            Random rnd = new Random();
+//            int color = Color.argb(255, rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256));
+//            image_get_View.setBackgroundColor(color);
+//        }
 
         public AdapterViewHolder(@NonNull View itemView)
         {
             super(itemView);
-            View item = itemView.findViewById(R.id.IdItem);
+           // View item = itemView.findViewById(R.id.IdItem);
             image_get_View=itemView.findViewById(R.id.ImageView_Colcr);
             TV_Number_get_View=itemView.findViewById(R.id.TextView_Number);
             TextV_get_View=itemView.findViewById(R.id.TextView_Text);
 
-            item.setOnClickListener(new View.OnClickListener() {
+            itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Toast.makeText(itemView.getContext(),"#"+TV_Number_get_View, Toast.LENGTH_LONG).show();
+                    Toast.makeText(itemView.getContext(),"#"+TV_Number_get_View.getText().toString(), Toast.LENGTH_LONG).show();
                 }
             });
 

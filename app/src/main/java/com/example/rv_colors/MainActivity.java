@@ -17,8 +17,9 @@ import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
 
-  int counter;
-    static Class_New_Modle_Item  new_modle_item;
+ static int counter;
+  private ArrayList<Class_New_Modle_Item>  new_modle_item= new ArrayList<>();
+  MyAdapter myAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,15 +28,15 @@ public class MainActivity extends AppCompatActivity {
 
         FloatingActionButton Btn_Increase_Item= findViewById(R.id.Btn_Increase_Item);
         RecyclerView recyclerView =findViewById(R.id.RecyclerView_item);
-        counter++;
-        new_modle_item =new Class_New_Modle_Item(getRandomColor(),counter+"","This is "+counter);
-        ArrayList<Class_New_Modle_Item> Array_Of_Items = new ArrayList<>();
-        Array_Of_Items.add(new_modle_item);
-        counter++;
-        Array_Of_Items.add(new_modle_item);
-        counter++;
+int color = getRandomColor();
 
-        Array_Of_Items.add(new_modle_item);
+        new_modle_item.add(new Class_New_Modle_Item(getRandomColor(),"1","This is 1")) ;
+
+        new_modle_item.add(new Class_New_Modle_Item(getRandomColor(),"2","This is 2")) ;
+
+        new_modle_item.add(new Class_New_Modle_Item(getRandomColor(),"3","This is 3")) ;
+
+
 
         //Array_Of_Items.add(R.color.New_Color,counter+"","This is "+counter);
                 //= new Class_New_Modle_Item[3];
@@ -49,20 +50,26 @@ public class MainActivity extends AppCompatActivity {
         Btn_Increase_Item.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                counter++;
-                Array_Of_Items.add(new_modle_item);
+                //counter+=1;
+               // int num =new_modle_item.size()-1;
+                new_modle_item.add(new Class_New_Modle_Item(getRandomColor(),"new","This is ")) ;
+               myAdapter.notifyDataSetChanged();
                 Toast.makeText(getApplicationContext(),"new item",Toast.LENGTH_LONG).show();
 
             }
         });
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        MyAdapter adapter = new MyAdapter(Array_Of_Items);
+        MyAdapter adapter = new MyAdapter(new_modle_item);
         recyclerView.setAdapter(adapter);
 
 
 
     }
-    public int getRandomColor(){
+    public  void changeItem(int colorImage)
+    {
+
+    }
+    public static int getRandomColor(){
         Random rnd = new Random();
         return Color.argb(255, rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256));
     }
