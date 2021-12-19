@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
                 new_modle_item.add(new Class_New_Modle_Item(getRandomColor(), "This is "+index, ""+index));
                 myAdapter.notifyItemInserted(new_modle_item.size()+2);
                 Toast.makeText(getApplicationContext(), "new item", Toast.LENGTH_LONG).show();
-
+////////////////////////////dit
             }
         });
 
