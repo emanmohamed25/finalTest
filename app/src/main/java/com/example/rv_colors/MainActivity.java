@@ -1,6 +1,7 @@
 package com.example.rv_colors;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -17,59 +18,48 @@ import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
 
- static int counter;
-  private ArrayList<Class_New_Modle_Item>  new_modle_item= new ArrayList<>();
-  MyAdapter myAdapter;
+    private ArrayList<Class_New_Modle_Item> new_modle_item = new ArrayList<>();
+    MyAdapter myAdapter = new MyAdapter(new_modle_item);
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
 
-        FloatingActionButton Btn_Increase_Item= findViewById(R.id.Btn_Increase_Item);
-        RecyclerView recyclerView =findViewById(R.id.RecyclerView_item);
-int color = getRandomColor();
-
-        new_modle_item.add(new Class_New_Modle_Item(getRandomColor(),"1","This is 1")) ;
-
-        new_modle_item.add(new Class_New_Modle_Item(getRandomColor(),"2","This is 2")) ;
-
-        new_modle_item.add(new Class_New_Modle_Item(getRandomColor(),"3","This is 3")) ;
+        FloatingActionButton Btn_Increase_Item = findViewById(R.id.Btn_Increase_Item);
+        RecyclerView recyclerView = findViewById(R.id.RecyclerView_item);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        //linearLayoutManager.setOrientation(RecyclerView.HORIZONTAL);
+        recyclerView.setLayoutManager(linearLayoutManager);
+        recyclerView.setAdapter(myAdapter);
 
 
+        new_modle_item.add(new Class_New_Modle_Item(getRandomColor(), "This is 1", "1"));
 
-        //Array_Of_Items.add(R.color.New_Color,counter+"","This is "+counter);
-                //= new Class_New_Modle_Item[3];
-////        for (int i =0 ; i<3;i++)
-//        {
-//            Array_Of_Items[i] =new_modle_item;
-//            counter++;
-//        }
+        new_modle_item.add(new Class_New_Modle_Item(getRandomColor(), "This is 2", "2"));
+
+        new_modle_item.add(new Class_New_Modle_Item(getRandomColor(), "This is 3", "3"));
 
 
         Btn_Increase_Item.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //counter+=1;
-               // int num =new_modle_item.size()-1;
-                new_modle_item.add(new Class_New_Modle_Item(getRandomColor(),"new","This is ")) ;
-               myAdapter.notifyDataSetChanged();
-                Toast.makeText(getApplicationContext(),"new item",Toast.LENGTH_LONG).show();
+                int index=new_modle_item.size()+1;
+
+                new_modle_item.add(new Class_New_Modle_Item(getRandomColor(), "This is "+index, ""+index));
+                myAdapter.notifyItemInserted(new_modle_item.size()+2);
+                Toast.makeText(getApplicationContext(), "new item", Toast.LENGTH_LONG).show();
 
             }
         });
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        MyAdapter adapter = new MyAdapter(new_modle_item);
-        recyclerView.setAdapter(adapter);
-
 
 
     }
-    public  void changeItem(int colorImage)
-    {
 
-    }
-    public static int getRandomColor(){
+
+
+    public static int getRandomColor() {
         Random rnd = new Random();
         return Color.argb(255, rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256));
     }
